@@ -46,4 +46,6 @@ void printState(State state){
         }
         printf("\n");
     }
+
+    printf("\n\n");
 }
