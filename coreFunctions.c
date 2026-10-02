@@ -1,4 +1,6 @@
+#include <stdio.h>
 #include "coreFunctions.h"
+
 
 //*TODO DEFINE SBOX*
 
