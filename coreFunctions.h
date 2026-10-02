@@ -1,9 +1,15 @@
 #include <stdint.h>
 
-typedef uint8_t[4][4] State;
-typedef uint8_t[16] Key128;
+typedef uint8_t State[4][4];
+typedef uint8_t Key128[16];
 
 extern const uint8_t sBox[256];
 
 
 //*TODO FUNCTION PROTOTYPES
+void subBytes(State* s);
+void shiftRows(State* s);
+void mixColumns(State* s);
+void addRoundKey(State state, uint8_t* roundKey);
+void keyExpansion(Key128 firstKey, uint8_t* allKeys);
+void printState(State state);

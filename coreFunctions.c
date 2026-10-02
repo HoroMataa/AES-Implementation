@@ -20,10 +20,10 @@ void mixColumns(State* s){
 
 }
 
-
+//function that xors the state with the corresponging round key, notice that we loop column major because the state and the xoring is both column major
+//takes state as an intput and then pointer to the first byte of our round key
 void addRoundKey(State state, uint8_t* roundKey){
-    //function that xors the state with the corresponging round key, notice that we loop column major because the state and the xoring is both column major
-
+    
     int xorCount = 0;
 
     for(int column = 0; column < 4; column++){
@@ -33,6 +33,15 @@ void addRoundKey(State state, uint8_t* roundKey){
     }
 }
 
-void keyExpansion(Key128 firstKey, uint8_t[16 * 11]){
+void keyExpansion(Key128 firstKey, uint8_t* allKeys){
 
+}
+
+void printState(State state){
+    for (int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            printf("%d  ", state[i][j]);
+        }
+        printf("\n");
+    }
 }
