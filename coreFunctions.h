@@ -6,7 +6,7 @@ typedef uint8_t Key128[16];
 extern const uint8_t sBox[256];
 
 
-//*TODO FUNCTION PROTOTYPES
+//FUNCTION PROTOTYPES
 void subBytes(State* s);
 void shiftRows(State* s);
 void mixColumns(State* s);
