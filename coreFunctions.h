@@ -8,6 +8,7 @@ extern const uint8_t substituionBox[256];
 
 //FUNCTION PROTOTYPES
 uint8_t sBox(uint8_t byte);
+void subBytes(State state);
 void shiftRows(State s);
 void mixColumns(State s);
 void addRoundKey(State state, uint8_t* roundKey);

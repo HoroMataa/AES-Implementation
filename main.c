@@ -7,11 +7,13 @@
 
 int main(void){
     
-    State s = {1,255,255,1};
+    State s = {0x2d,0x01,0x55,0xfa};
     Key128 key = {255,255,255,255, 0,255,255,255, 255,255,255,255, 0,255,255,255};
     printState(s);
 
-    addRoundKey(s, key);
+    //addRoundKey(s, key);
+    subBytes(s);
+
 
     printState(s);
 }
