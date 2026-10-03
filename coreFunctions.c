@@ -27,13 +27,22 @@ uint8_t sBox(uint8_t byte){
     return (substituionBox[byte]);
 }
 
+void subBytes(State state){
 
-void shiftRows(State* s){
+    for(int column = 0; column < 4; column++){
+        for(int row = 0; row < 4; row++){
+            state[row][column] = sBox(state[row][column]);
+        }
+    }
+}
+
+
+void shiftRows(State s){
 
 }
 
 
-void mixColumns(State* s){
+void mixColumns(State s){
 
 }
 
