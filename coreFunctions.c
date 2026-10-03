@@ -22,11 +22,27 @@ const uint8_t substituionBox[256] = {
     0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16
 };
 
+//round constants
+uint8_t Rcon[] = {
+    0x00,
+    0x01,
+    0x02,
+    0x04,
+    0x08,
+    0x10,
+    0x20,
+    0x40,
+    0x80,
+    0x1B,
+    0x36
+};
+
 //version of the function working with the array sBox, later to be changed to the mathematical function
 uint8_t sBox(uint8_t byte){
     return (substituionBox[byte]);
 }
 
+//caling sBox for each byte in the state
 void subBytes(State state){
 
     for(int column = 0; column < 4; column++){
@@ -34,6 +50,7 @@ void subBytes(State state){
             state[row][column] = sBox(state[row][column]);
         }
     }
+  
 }
 
 
@@ -61,6 +78,24 @@ void addRoundKey(State state, uint8_t* roundKey){
 
 //allKeys are officially called "key schedule"
 void keyExpansion(Key128 firstKey, uint8_t* allKeys){
+
+}
+
+void rotWord(uint8_t* word){
+    uint8_t tmp = word[0];
+    for(int i = 0; i < 3; i++){
+        word[i] = word[i + 1];
+    }
+    word[3] = tmp;
+}
+
+void subWord(uint8_t* word){
+    for(int i = 0; i < 4; i++){
+        word[i] = sBox(word[i]);
+    }
+}
+
+void addRoundConst(uint8_t* word){
 
 }
 
