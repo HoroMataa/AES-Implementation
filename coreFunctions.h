@@ -1,4 +1,5 @@
 #include <stdint.h>
+#define ROUND_COUNT 10
 
 typedef uint8_t State[4][4];
 typedef uint8_t Key128[16];

@@ -76,11 +76,23 @@ void addRoundKey(State state, uint8_t* roundKey){
     }
 }
 
-//allKeys are officially called "key schedule"
-void keyExpansion(Key128 firstKey, uint8_t* allKeys){
+//accepts the first key and empty keySchedule array that will be filled with generated keys
+void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
 
+    //copy first key into keySchedule
+    for(int i = 0; i < 16; i++){
+        keySchedule[i] = firstKey[i];
+    }
+    
+    //generate new word (remaining 40 words = 10 keys)
+
+    //for each word
+    for(int i = 0; i < ROUND_COUNT; i++){
+        
+    }
 }
 
+//rotates 4 bytes in a word one place to the left
 void rotWord(uint8_t* word){
     uint8_t tmp = word[0];
     for(int i = 0; i < 3; i++){
@@ -89,12 +101,14 @@ void rotWord(uint8_t* word){
     word[3] = tmp;
 }
 
+//substitutes each byte in a word via sbox
 void subWord(uint8_t* word){
     for(int i = 0; i < 4; i++){
         word[i] = sBox(word[i]);
     }
 }
 
+//adds the round constant to the first byte of a word
 void addRoundConstant(uint8_t* word, uint8_t round){
     word[0] = word[0] ^ rCon[round];
 }
