@@ -23,7 +23,7 @@ const uint8_t substituionBox[256] = {
 };
 
 //round constants
-uint8_t Rcon[] = {
+const uint8_t rCon[] = {
     0x00,
     0x01,
     0x02,
@@ -95,8 +95,8 @@ void subWord(uint8_t* word){
     }
 }
 
-void addRoundConst(uint8_t* word){
-
+void addRoundConstant(uint8_t* word, uint8_t round){
+    word[0] = word[0] ^ rCon[round];
 }
 
 void printState(State state){
