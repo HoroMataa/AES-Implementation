@@ -83,6 +83,12 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
     for(; i < 4 * 4; i += 4){
         cpyWord(&firstKey[i], &keySchedule[i]);
     }
+
+    printf("calling print word on first byte of first four words keySchedule\n");
+    printWord(keySchedule);
+    printWord(keySchedule + 4);
+    printWord(keySchedule + 8);
+    printWord(keySchedule + 12);
     
     //generate new word (remaining 40 words = 10 keys)
 
