@@ -13,7 +13,7 @@ int main(void){
     keyExpansion(key, keySchedule);
 
     //prints last four bytes of the last key that was generated
-    printWord(keySchedule[11 * 4 * 4 - 4]);
+    printWord(keySchedule + 11 * 4 * 4 - 4);
 
 
 }
