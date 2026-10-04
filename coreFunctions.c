@@ -83,67 +83,15 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
     for(; i < 4 * 4; i += 4){
         cpyWord(&firstKey[i], &keySchedule[i]);
     }
-
-    printf("calling print word on first byte of first four words keySchedule\n");
-    printWord(keySchedule);
-    printWord(keySchedule + 4);
-    printWord(keySchedule + 8);
-    printWord(keySchedule + 12);
     
     //generate new word (remaining 40 words = 10 keys)
-
     //for each key(roundcount + 1) and each word(4) and each first byte in that word(4)
     for(; i < (ROUND_COUNT + 1) * 4 * 4; i += 4){
         if(i % 16 == 0){
-            /* addRoundConstant(rotWord(cpyWord(&keySchedule[i - 1 * 4],&keySchedule[i])), i / 16);
-            xorWord(&keySchedule[i - 4 * 4], &keySchedule[i]); */
-
-            //debug statements
-            printf("Generating w%d with special conditions:\n", i / 4);
-
-            printf("temp:\n");
-            printWord(cpyWord(&keySchedule[i - 1 * 4],&keySchedule[i]));
-
-            printf("after rotWord:\n");
-            printWord(rotWord(&keySchedule[i]));
-
-            printf("after subWord:\n");
-            printWord(subWord(&keySchedule[i]));
-
-            printf("rCon:\n");
-            printf("%02x\n",rCon[i / 16]);
-
-            printf("after xor with rCon:\n");
-            printWord(addRoundConstant(&keySchedule[i], i / 16));
-
-            printf("to be xored with:\n");
-            printWord(&keySchedule[i - 4 * 4]);
-
-            printf("final word\n");
-            printWord(xorWord(&keySchedule[i - 4 * 4], &keySchedule[i]));
-
-            //WORKS!!!!!!!
-
-            printf("\n\n");
+            xorWord(&keySchedule[i - 4 * 4], addRoundConstant(subWord(rotWord(cpyWord(&keySchedule[i - 1 * 4],&keySchedule[i]))), i / 16));
         }
         else{
-            /* xorWord(&keySchedule[i - 4 * 4], cpyWord(&keySchedule[i - 1 * 4], keySchedule)); */
-
-            //debug statements
-            printf("Generating w%d with normal conditions:\n", i / 4);
-
-            printf("temp:\n");
-            printWord(cpyWord(&keySchedule[i - 1 * 4],&keySchedule[i]));
-
-            printf("to be xored with:\n");
-            printWord(&keySchedule[i - 4 * 4]);
-
-            printf("final word\n");
-            printWord(xorWord(&keySchedule[i - 4 * 4], &keySchedule[i]));
-
-            //WORKS!!!!
-            
-            printf("\n\n");
+            xorWord(&keySchedule[i - 4 * 4], cpyWord(&keySchedule[i - 1 * 4], &keySchedule[i]));
         }
     }
 }
