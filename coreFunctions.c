@@ -82,7 +82,7 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
     //copy first key into keySchedule
     int i = 0;
     for(; i < 4 * 4; i += 4){
-        cpyWord(firstKey[i], keySchedule[i]);
+        cpyWord(firstKey + i, keySchedule + i);
     }
     
     //generate new word (remaining 40 words = 10 keys)
