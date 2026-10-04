@@ -94,7 +94,7 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
             xorWord(&keySchedule[i - 4 * 4], &keySchedule[i]);
         }
         else{
-            xorWord(&keySchedule[i - 4 * 4], cpyWord(&keySchedule[i - 1 * 4], &keySchedule));
+            xorWord(&keySchedule[i - 4 * 4], cpyWord(&keySchedule[i - 1 * 4], keySchedule));
         }
     }
 }
