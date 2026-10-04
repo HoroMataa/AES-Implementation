@@ -123,6 +123,8 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
             printWord(xorWord(&keySchedule[i - 4 * 4], &keySchedule[i]));
 
             //WORKS!!!!!!!
+
+            printf("\n\n");
         }
         else{
             /* xorWord(&keySchedule[i - 4 * 4], cpyWord(&keySchedule[i - 1 * 4], keySchedule)); */
@@ -138,7 +140,10 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
 
             printf("final word\n");
             printWord(xorWord(&keySchedule[i - 4 * 4], &keySchedule[i]));
+
+            //WORKS!!!!
             
+            printf("\n\n");
         }
     }
 }
