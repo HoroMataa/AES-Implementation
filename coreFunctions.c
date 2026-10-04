@@ -105,19 +105,24 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
             printWord(cpyWord(&keySchedule[i - 1 * 4],&keySchedule[i]));
 
             printf("after rotWord:\n");
-            printWord(rotWord(&keySchedule[i]));\
+            printWord(rotWord(&keySchedule[i]));
+
+            printf("after subWord:\n");
+            printWord(subWord(&keySchedule[i]));
 
             printf("rCon:\n");
-            printf("%u\n",rCon[i / 16]);
+            printf("%02x\n",rCon[i / 16]);
 
             printf("after xor with rCon:\n");
-            printWord(addRoundConstant(keySchedule, i / 16));
+            printWord(addRoundConstant(&keySchedule[i], i / 16));
 
             printf("to be xored with:\n");
             printWord(&keySchedule[i - 4 * 4]);
 
             printf("final word\n");
             printWord(xorWord(&keySchedule[i - 4 * 4], &keySchedule[i]));
+
+            //WORKS!!!!!!!
             
 
 
@@ -179,7 +184,7 @@ uint8_t* addRoundConstant(uint8_t* word, uint8_t round){
 
 void printWord(uint8_t* word){
     for(int i = 0; i < 4; i++){
-        printf("%x", word[i]);
+        printf("%02x", word[i]);
     }
     printf("\n");
 }
