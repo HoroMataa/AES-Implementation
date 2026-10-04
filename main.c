@@ -15,5 +15,9 @@ int main(void){
     //prints last four bytes of the last key that was generated
     printWord(keySchedule + 11 * 4 * 4 - 4);
 
+    for(int i = 0; i < 176; i++){
+        printf("%u\n", keySchedule[i]);
+    }
+ 
 
 }

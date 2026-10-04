@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "coreFunctions.h"
 
 
@@ -145,6 +144,7 @@ void printWord(uint8_t* word){
     for(int i = 0; i < 4; i++){
         printf("%x", word[i]);
     }
+    printf("\n");
 }
 
 void printState(State state){
