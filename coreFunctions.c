@@ -87,10 +87,10 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
     
     //generate new word (remaining 40 words = 10 keys)
 
-    //for each key and each word
-    for(; i < (ROUND_COUNT + 1) * 4; i += 4){
+    //for each key(roundcount) and each word(4) and each first byte in that word(4)
+    for(; i < (ROUND_COUNT + 1) * 4 * 4; i += 4){
         if(i % 4 == 0){
-            keySchedule[i] = addRoundConstant(rotWord(cpyWord(keySchedule[i - 1 * 4],keySchedule[i])), i / 4); 
+            addRoundConstant(rotWord(cpyWord(keySchedule[i - 1 * 4],keySchedule[i])), i / 4); 
         }
         else{
             w[i] = w[i - 4 * 1] ^ w[i - 4 * 4];
@@ -107,24 +107,28 @@ uint8_t* cpyWord(uint8_t* original, uint8_t* copy){
 }
 
 //rotates 4 bytes in a word one place to the left
-void rotWord(uint8_t* word){
+uint8_t* rotWord(uint8_t* word){
     uint8_t tmp = word[0];
     for(int i = 0; i < 3; i++){
         word[i] = word[i + 1];
     }
     word[3] = tmp;
+
+    return(word[0]);
 }
 
 //substitutes each byte in a word via sbox
-void subWord(uint8_t* word){
+uint8_t* subWord(uint8_t* word){
     for(int i = 0; i < 4; i++){
         word[i] = sBox(word[i]);
     }
+    return(word[0]);
 }
 
 //adds the round constant to the first byte of a word
-void addRoundConstant(uint8_t* word, uint8_t round){
+uint8_t* addRoundConstant(uint8_t* word, uint8_t round){
     word[0] = word[0] ^ rCon[round];
+    return(word[0]);
 }
 
 void printState(State state){
