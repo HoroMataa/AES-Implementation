@@ -99,14 +99,14 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
             xorWord(&keySchedule[i - 4 * 4], &keySchedule[i]);
 
             //debug statements
-            printf("Generated w%d with special conditions:\n", i);
+            printf("Generating w%d with special conditions:\n", i / 4);
             printWord(&keySchedule[i]);
         }
         else{
             xorWord(&keySchedule[i - 4 * 4], cpyWord(&keySchedule[i - 1 * 4], keySchedule));
 
             //debug statements
-            printf("Generated w%d with normal conditions:\n", i);
+            printf("Generating w%d with normal conditions:\n", i / 4);
             printWord(&keySchedule[i]);
         }
     }
