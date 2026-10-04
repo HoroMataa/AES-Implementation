@@ -80,15 +80,27 @@ void addRoundKey(State state, uint8_t* roundKey){
 void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
 
     //copy first key into keySchedule
-    for(int i = 0; i < 16; i++){
+    int i = 0;
+    for(; i < 16; i++){
         keySchedule[i] = firstKey[i];
     }
     
     //generate new word (remaining 40 words = 10 keys)
 
-    //for each word
-    for(int i = 0; i < ROUND_COUNT; i++){
-        
+    //for each key and each word
+    for(; i < (ROUND_COUNT + 1) * 4; i++){
+        if(i % 4 == 0){
+            w[i] = subWord(rotWord(w))
+        }
+        else{
+            w[i] = w[i - 1] ^ w[i - 4]
+        }
+    }
+}
+
+void cpyWord(uint8_t* original, uint8_t* copy){
+    for(int i = 0; i < 3; i++){
+        copy[i] = original[i + 1];
     }
 }
 
