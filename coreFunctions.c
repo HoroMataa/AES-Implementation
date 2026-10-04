@@ -100,6 +100,29 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
 
             //debug statements
             printf("Generating w%d with special conditions:\n", i / 4);
+
+            printf("temp:\n");
+            printWord(cpyWord(&keySchedule[i - 1 * 4],&keySchedule[i]));
+
+            printf("after rotWord:\n");
+            printWord(rotWord(&keySchedule[i]));\
+
+            printf("rCon:\n");
+            printf("%u\n",rCon[i / 16]);
+
+            printf("after xor with rCon:\n");
+            printWord(addRoundConstant(keySchedule, i / 16));
+
+            printf("to be xored with:\n");
+            printWord(&keySchedule[i - 4 * 4]);
+
+            printf("final word\n");
+            printWord(xorWord(&keySchedule[i - 4 * 4], &keySchedule[i]));
+            
+
+
+
+
             printWord(&keySchedule[i]);
         }
         else{
