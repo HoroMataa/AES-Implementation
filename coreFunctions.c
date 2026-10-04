@@ -104,7 +104,7 @@ uint8_t* cpyWord(uint8_t* original, uint8_t* copy){
     for(int i = 0; i < 4; i++){
         copy[i] = original[i];
     }
-    return(copy[0]);
+    return(copy);
 }
 
 //xors word1 with word2 and writes result in word2, returns pointer to it
@@ -112,7 +112,7 @@ uint8_t* xorWord(uint8_t* wToStay, uint8_t* wToChange){
     for(int i = 0; i < 4; i++){
         wToChange[i] = wToChange[i] ^ wToStay[i];
     }
-    return(wToChange[0]);
+    return(wToChange);
 }
 
 
@@ -124,7 +124,7 @@ uint8_t* rotWord(uint8_t* word){
     }
     word[3] = tmp;
 
-    return(word[0]);
+    return(word);
 }
 
 //substitutes each byte in a word via sbox
@@ -132,13 +132,13 @@ uint8_t* subWord(uint8_t* word){
     for(int i = 0; i < 4; i++){
         word[i] = sBox(word[i]);
     }
-    return(word[0]);
+    return(word);
 }
 
 //adds the round constant to the first byte of a word
 uint8_t* addRoundConstant(uint8_t* word, uint8_t round){
     word[0] = word[0] ^ rCon[round];
-    return(word[0]);
+    return(word);
 }
 
 void printWord(uint8_t* word){
