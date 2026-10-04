@@ -81,19 +81,19 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
 
     //copy first key into keySchedule
     int i = 0;
-    for(; i < 4 * 4; i++){
-        keySchedule[i] = firstKey[i];
+    for(; i < 4 * 4; i += 4){
+        cpyWord(firstKey[i], keySchedule[i]);
     }
     
     //generate new word (remaining 40 words = 10 keys)
 
     //for each key(roundcount) and each word(4) and each first byte in that word(4)
-    for(; i < (ROUND_COUNT + 1) * 4 * 4; i += 4){
-        if(i % 4 == 0){
+    for(; i < (ROUND_COUNT) * 4 * 4; i += 4){
+        if(i % 16 == 0){
             addRoundConstant(rotWord(cpyWord(keySchedule[i - 1 * 4],keySchedule[i])), i / 4); 
         }
         else{
-            w[i] = w[i - 4 * 1] ^ w[i - 4 * 4];
+            
         }
     }
 }
@@ -105,6 +105,14 @@ uint8_t* cpyWord(uint8_t* original, uint8_t* copy){
     }
     return(copy[0]);
 }
+
+uint8_t* xorWord(uint8_t* wToStay, uint8_t* wToChange){
+    for(int i = 0; i < 4; i++){
+        wToChange[i] = wToChange[i] ^ wToStay[i];
+    }
+    return(wToChange[0]);
+}
+
 
 //rotates 4 bytes in a word one place to the left
 uint8_t* rotWord(uint8_t* word){
