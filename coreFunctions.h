@@ -5,7 +5,7 @@ typedef uint8_t State[4][4];
 typedef uint8_t Key128[16];
 
 extern const uint8_t substituionBox[256];
-extern const uint8_t rCon[10];
+extern const uint8_t rCon[11];
 
 
 //FUNCTION PROTOTYPES
