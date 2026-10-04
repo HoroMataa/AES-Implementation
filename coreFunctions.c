@@ -123,19 +123,22 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
             printWord(xorWord(&keySchedule[i - 4 * 4], &keySchedule[i]));
 
             //WORKS!!!!!!!
-            
-
-
-
-
-            printWord(&keySchedule[i]);
         }
         else{
-            xorWord(&keySchedule[i - 4 * 4], cpyWord(&keySchedule[i - 1 * 4], keySchedule));
+            /* xorWord(&keySchedule[i - 4 * 4], cpyWord(&keySchedule[i - 1 * 4], keySchedule)); */
 
             //debug statements
             printf("Generating w%d with normal conditions:\n", i / 4);
-            printWord(&keySchedule[i]);
+
+            printf("temp:\n");
+            printWord(cpyWord(&keySchedule[i - 1 * 4],&keySchedule[i]));
+
+            printf("to be xored with:\n");
+            printWord(&keySchedule[i - 4 * 4]);
+
+            printf("final word\n");
+            printWord(xorWord(&keySchedule[i - 4 * 4], &keySchedule[i]));
+            
         }
     }
 }
