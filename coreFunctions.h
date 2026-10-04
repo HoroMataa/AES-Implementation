@@ -14,5 +14,12 @@ void subBytes(State state);
 void shiftRows(State s);
 void mixColumns(State s);
 void addRoundKey(State state, uint8_t* roundKey);
+
 void keyExpansion(Key128 firstKey, uint8_t* allKeys);
+uint8_t* cpyWord(uint8_t* original, uint8_t* copy);
+uint8_t* xorWord(uint8_t* wToStay, uint8_t* wToChange);
+uint8_t* rotWord(uint8_t* word);
+uint8_t* subWord(uint8_t* word);
+uint8_t* addRoundConstant(uint8_t* word, uint8_t round);
+
 void printState(State state);
