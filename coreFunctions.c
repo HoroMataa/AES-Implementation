@@ -92,14 +92,22 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
     
     //generate new word (remaining 40 words = 10 keys)
 
-    //for each key(roundcount) and each word(4) and each first byte in that word(4)
-    for(; i < (ROUND_COUNT) * 4 * 4; i += 4){
+    //for each key(roundcount + 1) and each word(4) and each first byte in that word(4)
+    for(; i < (ROUND_COUNT + 1) * 4 * 4; i += 4){
         if(i % 16 == 0){
             addRoundConstant(rotWord(cpyWord(&keySchedule[i - 1 * 4],&keySchedule[i])), i / 16);
             xorWord(&keySchedule[i - 4 * 4], &keySchedule[i]);
+
+            //debug statements
+            printf("Generated w%d with special conditions:\n", i);
+            printWord(&keySchedule[i]);
         }
         else{
             xorWord(&keySchedule[i - 4 * 4], cpyWord(&keySchedule[i - 1 * 4], keySchedule));
+
+            //debug statements
+            printf("Generated w%d with normal conditions:\n", i);
+            printWord(&keySchedule[i]);
         }
     }
 }

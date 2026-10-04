@@ -11,13 +11,6 @@ int main(void){
     uint8_t keySchedule[11 * 4 * 4];
 
     keyExpansion(key, keySchedule);
-
-    //prints last four bytes of the last key that was generated
-    printWord(keySchedule + 11 * 4 * 4 - 4);
-
-    for(int i = 0; i < 176; i++){
-        printf("%u\n", keySchedule[i]);
-    }
  
 
 }
