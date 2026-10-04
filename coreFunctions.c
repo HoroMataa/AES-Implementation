@@ -90,15 +90,16 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
     //for each key(roundcount) and each word(4) and each first byte in that word(4)
     for(; i < (ROUND_COUNT) * 4 * 4; i += 4){
         if(i % 16 == 0){
-            addRoundConstant(rotWord(cpyWord(keySchedule[i - 1 * 4],keySchedule[i])), i / 4); 
+            addRoundConstant(rotWord(cpyWord(keySchedule[i - 1 * 4],keySchedule[i])), i / 16);
+            xorWord(keySchedule[i - 4 * 4], keySchedule[i]);
         }
         else{
-            
+            xorWord(keySchedule[i - 4 * 4], cpyWord(keySchedule[i - 1 * 4], keySchedule));
         }
     }
 }
 
-//copies original word into new word and returns pointer to its first byte
+//copies original word into new word and returns pointer to first byte of new word
 uint8_t* cpyWord(uint8_t* original, uint8_t* copy){
     for(int i = 0; i < 4; i++){
         copy[i] = original[i];
@@ -106,6 +107,7 @@ uint8_t* cpyWord(uint8_t* original, uint8_t* copy){
     return(copy[0]);
 }
 
+//xors word1 with word2 and writes result in word2, returns pointer to it
 uint8_t* xorWord(uint8_t* wToStay, uint8_t* wToChange){
     for(int i = 0; i < 4; i++){
         wToChange[i] = wToChange[i] ^ wToStay[i];
