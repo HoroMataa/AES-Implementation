@@ -141,6 +141,12 @@ uint8_t* addRoundConstant(uint8_t* word, uint8_t round){
     return(word[0]);
 }
 
+void printWord(uint8_t* word){
+    for(int i = 0; i < 4; i++){
+        printf("%x", word[i]);
+    }
+}
+
 void printState(State state){
     for (int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){

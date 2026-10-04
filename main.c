@@ -8,4 +8,12 @@
 int main(void){
     //testing the expansion of 128 bit key, test key taken from FIPS197 section A.1
     Key128 key = {0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c};
+    uint8_t keySchedule[11 * 4 * 4];
+
+    keyExpansion(key, keySchedule);
+
+    //prints last four bytes of the last key that was generated
+    printWord(keySchedule[11 * 4 * 4 - 4]);
+
+
 }
