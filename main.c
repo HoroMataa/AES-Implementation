@@ -12,6 +12,7 @@ int main(void){
 
     keyExpansion(key, keySchedule);
  
+    //print every word from keySchedule
     for(int i = 0; i < 176; i += 4){
         printWord(&keySchedule[i]);
     }
