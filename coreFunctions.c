@@ -53,8 +53,23 @@ void subBytes(State state){
 }
 
 
-void shiftRows(State s){
+void shiftRows(State state){
+    //each row except row1 gets shifted(rotated) i spots to the left where i is the row index
+    for(int i = 1; i < 4; i++){
+        stateShiftLeft(&state[i][0], i);
+    }
+}
 
+//shifts(rotates) a row in a state [shiftCount] times, accepts a pointer to the first byte of row we want to shift
+void stateShiftLeft(uint8_t* stateByte, int shiftCount){
+    for(int i = 0; i < shiftCount; i++){
+
+        uint8_t tmp = stateByte[0];
+        for(int j = 0; j < 3; j++){
+            stateByte[j] = stateByte[j + 1];
+        }
+        stateByte[3] = tmp;
+    }
 }
 
 
@@ -74,6 +89,9 @@ void addRoundKey(State state, uint8_t* roundKey){
         }
     }
 }
+
+
+
 
 //accepts the first key and empty keySchedule array that will be filled with generated keys
 void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
