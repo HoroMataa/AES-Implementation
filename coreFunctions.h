@@ -12,7 +12,10 @@ extern const uint8_t rCon[11];
 //FUNCTION PROTOTYPES
 uint8_t sBox(uint8_t byte);
 void subBytes(State state);
+
 void shiftRows(State s);
+void stateShiftLeft(uint8_t* stateByte, int shiftCount);
+
 void mixColumns(State s);
 void addRoundKey(State state, uint8_t* roundKey);
 

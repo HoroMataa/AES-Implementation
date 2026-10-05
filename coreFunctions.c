@@ -176,7 +176,7 @@ void printWord(uint8_t* word){
 void printState(State state){
     for (int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
-            printf("%d  ", state[i][j]);
+            printf("%x  ", state[i][j]);
         }
         printf("\n");
     }
