@@ -86,7 +86,7 @@ void stateShiftLeft(uint8_t* stateByte, int shiftCount){
     }
 }
 
-
+//function that changes every column, be careful not to overwrite the bytes before all the caclulations are completed!
 void mixColumns(State s){
 
 }
@@ -94,13 +94,12 @@ void mixColumns(State s){
 //Function that returns a polynomial that is a result of multiplication of the input by x in GF(2^8)
 void xTimes(uint8_t* byte){
     //if bit7 is 0, we just shift the byte to the left
-    //if not, there appears x^8 term but from the AES polynomial(x^8 + x^4 + x^3 + x + 1) we know that x^8 = x^4 + x^3 + x + 1 = 0x1b sos we can just add(XOR in GF2^8) 0x1b
+    //if not, there appears x^8 term but from the AES polynomial(x^8 + x^4 + x^3 + x + 1) we know that x^8 = x^4 + x^3 + x + 1 = 0x1b so we can just add(XOR in GF2^8) 0x1b
     if(*byte & 0b10000000){
         *byte = (*byte << 1) ^ 0x1b;
     }
     else{
         *byte = (*byte << 1);
-   
     }
 }
 
