@@ -36,20 +36,6 @@ const uint8_t rCon[] = {
     0x36
 };
 
-const uint8_t MixColumnsMatrix[] = {
-    0x00,
-    0x01,
-    0x02,
-    0x04,
-    0x08,
-    0x10,
-    0x20,
-    0x40,
-    0x80,
-    0x1B,
-    0x36
-};
-
 //version of the function working with the array sBox, later to be changed to the mathematical function
 uint8_t sBox(uint8_t byte){
     return (substituionBox[byte]);
@@ -87,19 +73,31 @@ void stateShiftLeft(uint8_t* stateByte, int shiftCount){
 }
 
 //function that changes every column, be careful not to overwrite the bytes before all the caclulations are completed!
-void mixColumns(State s){
+void mixOneColumn(uint8_t* stateByte){
+
+    uint8_t tmp0, tmp1, tmp2, tmp3;
+
+    tmp0 = (xTimes(&stateByte[0])) ^ (xTimes(&stateByte[4]) ^ stateByte[4]) ^ (stateByte[8]) ^ (stateByte[12]);
+    tmp1 = (stateByte[0]) ^ (xTimes(&stateByte[4])) ^ (xTimes(&stateByte[8]) ^ stateByte[8]) ^ (stateByte[12]);
+    tmp2 = (stateByte[0]) ^ (stateByte[4]) ^ (xTimes(&stateByte[8])) ^ (xTimes(&stateByte[12]) ^ stateByte[12]);
+    tmp3 = (xTimes(&stateByte[0]) ^ stateByte[0]) ^ (stateByte[4]) ^ (stateByte[8]) ^ (xTimes(&stateByte[12]));
+
+    stateByte[0] = tmp0;
+    stateByte[4] = tmp1;
+    stateByte[8] = tmp2;
+    stateByte[12] = tmp3;
 
 }
 
-//Function that returns a polynomial that is a result of multiplication of the input by x in GF(2^8)
-void xTimes(uint8_t* byte){
+//Function that returns a polynomial(in a binary representation) that is a result of multiplication of the input by x in GF(2^8)
+uint8_t xTimes(uint8_t* byte){
     //if bit7 is 0, we just shift the byte to the left
     //if not, there appears x^8 term but from the AES polynomial(x^8 + x^4 + x^3 + x + 1) we know that x^8 = x^4 + x^3 + x + 1 = 0x1b so we can just add(XOR in GF2^8) 0x1b
     if(*byte & 0b10000000){
-        *byte = (*byte << 1) ^ 0x1b;
-    }
+        return((*byte << 1) ^ 0x1b);
+   }
     else{
-        *byte = (*byte << 1);
+        return(*byte << 1);
     }
 }
 
