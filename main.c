@@ -21,7 +21,7 @@ int main(void){
 
     printState(state);
 
-    shiftRows(state);
+    mixColumns(state);
 
     printState(state);
 
