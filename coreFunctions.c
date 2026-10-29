@@ -74,14 +74,13 @@ void stateShiftLeft(uint8_t* stateByte, int shiftCount){
 
 void mixColumns(State state){
     for(int i = 0; i < 4; i++){
-        printf("Column %i before mixColumns():\n", i);
-        printState(state);
-
+        //printf("Column %i before mixColumns():\n", i);
+        //printState(state);
 
         mixOneColumn(&state[0][i]);
 
-        printf("Column %i mixed:\n", i);
-        printState(state);
+        //printf("Column %i mixed:\n", i);
+        //printState(state);
     }
 }
 
