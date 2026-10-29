@@ -16,7 +16,10 @@ void subBytes(State state);
 void shiftRows(State s);
 void stateShiftLeft(uint8_t* stateByte, int shiftCount);
 
-void mixColumns(State s);
+void mixColumns(uint8_t* state);
+void mixOneColumn(uint8_t* stateByte);
+uint8_t xTimes(uint8_t* byte);
+
 void addRoundKey(State state, uint8_t* roundKey);
 
 void keyExpansion(Key128 firstKey, uint8_t* keySchedule);

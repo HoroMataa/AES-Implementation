@@ -72,6 +72,19 @@ void stateShiftLeft(uint8_t* stateByte, int shiftCount){
     }
 }
 
+void mixColumns(uint8_t* state){
+    for(int i = 0; i < 4; i++){
+        printf("Column %i before mixColumns():\n", i);
+        printState(state);
+
+
+        mixOneColumn(state + i);
+
+        printf("Column %i mixed:\n", i);
+        printState(state);
+    }
+}
+
 //function that changes every column, be careful not to overwrite the bytes before all the caclulations are completed!
 void mixOneColumn(uint8_t* stateByte){
 
