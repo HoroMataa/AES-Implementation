@@ -17,12 +17,17 @@ int main(void){
         printWord(&keySchedule[i]);
     } */
 
-    State state = {{50, 22, 33, 03}, {112, 231, 05, 44},{12, 144, 199, 55},{12, 03, 223, 201}};
 
-    printState(state);
+    
+    //mixColumns test taken from fips 197 appendix B
+    State state = {
+    {0xd4, 0xe0, 0xb8, 0x1e},
+    {0xbf, 0xb4, 0x41, 0x27},
+    {0x5d, 0x52, 0x11, 0x98},
+    {0x30, 0xae, 0xf1, 0xe5}};
+
 
     mixColumns(state);
 
-    printState(state);
 
 }
