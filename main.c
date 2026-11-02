@@ -34,6 +34,17 @@ int main(void){
     printf("OUTPUT:\n");
     printState(state);
 
+    printf("NOW WITH CIPHER():\n");
+
+    State state2 = {{0x32, 0x88, 0x31, 0xe0}, {0x43, 0x5a, 0x31, 0x37}, {0xf6, 0x30, 0x98, 0x07}, {0xa8, 0x8d, 0xa2, 0x34}};
+    printState(state2);
+    cipher(state2, 10, keySchedule);
+    printState(state2);
+
+    
+
+
+
 
 
 

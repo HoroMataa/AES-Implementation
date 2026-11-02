@@ -36,6 +36,24 @@ const uint8_t rCon[] = {
     0x36
 };
 
+
+void cipher(State state, uint8_t roundCount, uint8_t keySchedule[]){
+
+    addRoundKey(state, keySchedule);
+    for(int round = 1; round < roundCount; round++){
+        subBytes(state);
+        shiftRows(state);
+        mixColumns(state);
+        addRoundKey(state, &keySchedule[round * 16]);
+    }
+    subBytes(state);
+    shiftRows(state);
+    addRoundKey(state, &keySchedule[roundCount * 16]);
+
+}
+
+
+
 //version of the function working with the array sBox, later to be changed to the mathematical function
 uint8_t sBox(uint8_t byte){
     return (substituionBox[byte]);

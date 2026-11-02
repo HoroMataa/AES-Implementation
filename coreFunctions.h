@@ -10,6 +10,9 @@ extern const uint8_t rCon[11];
 
 
 //FUNCTION PROTOTYPES
+void cipher(State state, uint8_t roundCount, uint8_t keySchedule[]);
+
+
 uint8_t sBox(uint8_t byte);
 void subBytes(State state);
 
@@ -28,6 +31,6 @@ uint8_t* xorWord(uint8_t* wToStay, uint8_t* wToChange);
 uint8_t* rotWord(uint8_t* word);
 uint8_t* subWord(uint8_t* word);
 uint8_t* addRoundConstant(uint8_t* word, uint8_t round);
-void printWord(uint8_t* word);
 
+void printWord(uint8_t* word);
 void printState(State state);
