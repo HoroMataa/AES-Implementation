@@ -22,6 +22,22 @@ const uint8_t inverseSubstitutionBox[256] = {
     0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d
 };
 
+void invCipher(State state, uint8_t roundCount, uint8_t keySchedule[]){
+ 
+    addRoundKey(state, &keySchedule[roundCount * 16]);
+    for(int round = roundCount; round > 0; round--){
+        invSubBytes(state);
+        invShiftRows(state);
+        invMixColumns(state);
+        addRoundKey(state, &keySchedule[round * 16]);
+    }
+    invSubBytes(state);
+    invShiftRows(state);
+    addRoundKey(state, keySchedule);
+
+}
+
+
 void invShiftRows(State state){
     //each row except row0 gets shifted(rotated) (4 - i) spots to the left, equivalent to i to the right making it inverse to shiftRows()
     for(int i = 1; i < 4; i++){
@@ -30,7 +46,45 @@ void invShiftRows(State state){
 }
 
 void invMixColumns(State state){
+    for(int i = 0; i < 4; i++){
+        invMixOneColumn(&state[0][i]);
+    }
+}
 
+void invMixOneColumn(uint8_t* stateByte){
+
+    uint8_t tmp0, tmp1, tmp2, tmp3, xs0, x2s0, x3s0, xs1, x2s1, x3s1, xs2, x2s2, x3s2, xs3, x2s3, x3s3;
+
+    //multipling by matrix:
+    /*
+    0e 0b 0d 09
+    09 0e 0b 0d 
+    0d 09 0e 0b
+    0b 0d 09 0e 
+    */
+
+
+    prepareIntermediates(&stateByte[0], &xs0, &x2s0, &x3s0);
+    prepareIntermediates(&stateByte[4], &xs1, &x2s1, &x3s1);
+    prepareIntermediates(&stateByte[8], &xs2, &x2s2, &x3s2);
+    prepareIntermediates(&stateByte[12], &xs3, &x2s3, &x3s3);
+
+    tmp0 = ((x3s0 ^ x2s0 ^ xs0) ^ (x3s1 ^ xs1 ^ stateByte[4]) ^ (x3s2 ^ x2s2 ^ stateByte[8]) ^ (x3s3 ^ stateByte[12]));
+    tmp1 = ((x3s0 ^ stateByte[0]) ^ (x3s1 ^ x2s1 ^ xs1) ^ (x3s2 ^ xs2 ^ stateByte[8]) ^ (x3s3 ^ x2s3 ^ stateByte[12]));
+    tmp2 = ((x3s0 ^ x2s0 ^ stateByte[0]) ^ (x3s1 ^ stateByte[4]) ^ (x3s2 ^ x2s2 ^ xs2) ^ (x3s3 ^ xs3 ^ stateByte[12]));
+    tmp3 = ((x3s0 ^ xs0 ^ stateByte[0]) ^ (x3s1 ^ x2s1 ^ stateByte[4]) ^ (x3s2 ^ stateByte[8]) ^ (x3s3 ^ x2s3 ^ xs3));
+
+    stateByte[0] = tmp0;
+    stateByte[4] = tmp1;
+    stateByte[8] = tmp2;
+    stateByte[12] = tmp3;
+
+}
+
+void prepareIntermediates(uint8_t* byte, uint8_t* inter1, uint8_t* inter2, uint8_t* inter3){
+    *inter1 = xTimes(byte);
+    *inter2= xTimes(inter1);
+    *inter3 = xTimes(inter2);
 }
 
 void invSubBytes(State state){

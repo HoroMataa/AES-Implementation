@@ -9,6 +9,8 @@ extern const uint8_t inverseSubstituionBox[256];
 void invShiftRows(State state);
 
 void invMixColumns(State state);
+void invMixOneColumn(uint8_t* stateByte);
+void prepareIntermediates(uint8_t* byte, uint8_t* inter1, uint8_t* inter2, uint8_t* inter3);
 
 void invSubBytes(State state);
 

@@ -20,18 +20,14 @@ int main(void){
 
 
 
-    addRoundKey(state, keySchedule);
-    subBytes(state);
-    shiftRows(state);
+    mixColumns(state);
 
     printf("AFTER CIPHER:\n");
     printState(state);
 
 
 
-    invShiftRows(state);
-    invSubBytes(state);
-    addRoundKey(state, keySchedule);
+    invMixColumns(state);
 
     printf("AFTER INVERSE CIPHER:\n");
     printState(state);
