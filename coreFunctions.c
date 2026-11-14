@@ -1,5 +1,7 @@
+#ifndef CORE_FUNCTIONS_H
+#define CORE_FUNCTIONS_H
 #include "coreFunctions.h"
-
+#endif
 
 //sbox in a row major layout
 const uint8_t substituionBox[256] = {

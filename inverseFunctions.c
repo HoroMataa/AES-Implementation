@@ -1,4 +1,7 @@
-#include "coreFunctions.h"
+#ifndef INVERSE_FUNCTIONS_H
+#define INVERSE_FUNCTIONS_H
+#include "inverseFunctions.h"
+#endif
 
 const uint8_t inverseSubstitutionBox[256] = {
     0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38, 0xbf, 0x40, 0xa3, 0x9e, 0x81, 0xf3, 0xd7, 0xfb,
@@ -19,18 +22,18 @@ const uint8_t inverseSubstitutionBox[256] = {
     0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d
 };
 
-invShiftRows(State state){
+void invShiftRows(State state){
     //each row except row0 gets shifted(rotated) (4 - i) spots to the left, equivalent to i to the right making it inverse to shiftRows()
     for(int i = 1; i < 4; i++){
         stateShiftLeft(&state[i][0], 4 - i);
     }
 }
 
-invMixColumns(State state){
+void invMixColumns(State state){
 
 }
 
-invSubBytes(State state){
+void invSubBytes(State state){
     for(int column = 0; column < 4; column++){
         for(int row = 0; row < 4; row++){
             state[row][column] = invSBox(state[row][column]);
