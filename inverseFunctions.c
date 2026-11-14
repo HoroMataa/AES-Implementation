@@ -25,11 +25,11 @@ const uint8_t inverseSubstitutionBox[256] = {
 void invCipher(State state, uint8_t roundCount, uint8_t keySchedule[]){
  
     addRoundKey(state, &keySchedule[roundCount * 16]);
-    for(int round = roundCount; round > 0; round--){
-        invSubBytes(state);
+    for(int round = roundCount - 1; round > 0; round--){
         invShiftRows(state);
-        invMixColumns(state);
+        invSubBytes(state);
         addRoundKey(state, &keySchedule[round * 16]);
+        invMixColumns(state);
     }
     invSubBytes(state);
     invShiftRows(state);

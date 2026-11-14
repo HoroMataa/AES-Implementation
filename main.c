@@ -20,14 +20,14 @@ int main(void){
 
 
 
-    mixColumns(state);
+    cipher(state, 10, keySchedule);
 
     printf("AFTER CIPHER:\n");
     printState(state);
 
 
 
-    invMixColumns(state);
+    invCipher(state, 10, keySchedule);
 
     printf("AFTER INVERSE CIPHER:\n");
     printState(state);

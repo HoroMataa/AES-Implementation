@@ -5,6 +5,7 @@
 
 extern const uint8_t inverseSubstituionBox[256];
 
+void invCipher(State state, uint8_t roundCount, uint8_t keySchedule[]);
 
 void invShiftRows(State state);
 
