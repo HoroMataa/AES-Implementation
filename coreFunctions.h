@@ -25,7 +25,7 @@ uint8_t xTimes(uint8_t* byte);
 
 void addRoundKey(State state, uint8_t* roundKey);
 
-void keyExpansion(Key128 firstKey, uint8_t* keySchedule);
+void keyExpansion(Key128 firstKey, uint8_t* keySchedule, uint8_t Nk, uint8_t Nr);
 uint8_t* cpyWord(uint8_t* original, uint8_t* copy);
 uint8_t* xorWord(uint8_t* wToStay, uint8_t* wToChange);
 uint8_t* rotWord(uint8_t* word);

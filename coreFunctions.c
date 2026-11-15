@@ -150,17 +150,17 @@ void addRoundKey(State state, uint8_t* roundKey){
 
 
 //accepts the first key and empty keySchedule array that will be filled with generated keys
-void keyExpansion(Key128 firstKey, uint8_t* keySchedule){
+void keyExpansion(Key128 firstKey, uint8_t* keySchedule, uint8_t Nk, uint8_t Nr){
 
     //copy first key into keySchedule
     int i = 0;
-    for(; i < 4 * 4; i += 4){
+    for(; i < Nk * 4; i += 4){
         cpyWord(&firstKey[i], &keySchedule[i]);
     }
     
     //generate new word (remaining 40 words = 10 keys)
     //for each key(roundcount + 1) and each word(4) and each first byte in that word(+4)
-    for(; i < (ROUND_COUNT + 1) * 4 * 4; i += 4){
+    for(; i < (Nr + 1) * 4 * 4; i += 4){
         if(i % 16 == 0){
             xorWord(&keySchedule[i - 4 * 4], 
                 addRoundConstant(
