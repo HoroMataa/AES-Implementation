@@ -14,8 +14,8 @@
 
 int main(int argc, char* argv[]){
 
-    //number of bits in a key
-    int Nk = 128;
+    //number of words in a key
+    uint8_t Nk = 4;
     //number of rounds
     uint8_t Nr = 10;
 
@@ -29,12 +29,12 @@ int main(int argc, char* argv[]){
                 break;
             case 192:
                 printf("AES192\n");
-                Nk = 192;
+                Nk = 6;
                 Nr = 12;
                 break;
             case 256:
                 printf("AES256\n");
-                Nk = 256;
+                Nk = 8;
                 Nr = 14;
                 break;
             default:
