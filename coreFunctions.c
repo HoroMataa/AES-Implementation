@@ -161,19 +161,27 @@ void keyExpansion(Key128 firstKey, uint8_t* keySchedule, uint8_t Nk, uint8_t Nr)
     //generate new word (remaining 40 words = 10 keys)
     //for each key(roundcount + 1) and each word(4) and each first byte in that word(+4)
     for(; i < (Nr + 1) * 4 * 4; i += 4){
-        if(i % 16 == 0){
-            xorWord(&keySchedule[i - 4 * 4], 
+        if(i % (Nk * 4) == 0){
+            xorWord(&keySchedule[i - Nk * 4], 
                 addRoundConstant(
                     subWord(
                         rotWord(
                             cpyWord(&keySchedule[i - 1 * 4],&keySchedule[i])
                         )
                     )
-                , i / 16)
+                , i / (Nk * 4))
             );
         }
+        else if(Nk > 6 && (i % (Nk * 4) == 4 * 4)){
+            printf("Special 256 keygen operation, %i\n", i);
+            xorWord(&keySchedule[i - Nk * 4],
+                subWord(
+                    cpyWord(&keySchedule[i - 1 * 4], &keySchedule[i])
+                )
+            );
+        } 
         else{
-            xorWord(&keySchedule[i - 4 * 4],
+            xorWord(&keySchedule[i - Nk * 4],
                 cpyWord(&keySchedule[i - 1 * 4], &keySchedule[i])
             );
         }

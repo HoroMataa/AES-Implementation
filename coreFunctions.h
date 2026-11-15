@@ -4,6 +4,8 @@
 
 typedef uint8_t State[4][4];
 typedef uint8_t Key128[16];
+typedef uint8_t Key192[24];
+typedef uint8_t Key256[32];
 
 extern const uint8_t substituionBox[256];
 extern const uint8_t rCon[11];
